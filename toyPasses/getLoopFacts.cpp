@@ -19,7 +19,7 @@ namespace {
 		}
 		void countBBInLoop(Loop* L, int depth) {
 			int blocks = 0;
-			for(LoopBase< BlockT, LoopT >::block_iterator bb = L->block_begin(); bb != L->block_end(); ++bb) {
+			for(auto bb = L->block_begin(); bb != L->block_end(); ++bb) {
 				blocks++;
 				BasicBlock::iterator t;
 				for(t = (*bb)->begin(); t!= (*bb)->end();t++) {
@@ -36,7 +36,7 @@ namespace {
 		}
 		bool runOnFunction(Function &F) {
 			errs() << "Function: " <<F.getName() << "\n";
-			LoopInfo &LI = getAnalysis<LoopInfonfoWrapperPass>().getLoopInfo();
+			LoopInfo &LI = getAnalysis<LoopInfoWrapperPass>().getLoopInfo();
 			int loopCounter = 0;
 			for (LoopInfo::iterator i = LI.begin(), e = LI.end(); i != e; ++i) {
 				Loop* L = *i;
