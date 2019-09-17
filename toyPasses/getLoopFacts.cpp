@@ -19,13 +19,12 @@ namespace {
 		}
 		void countBBInLoop(Loop* L, int depth) {
 			int blocks = 0;
-			for(auto bb = L->block_begin(); bb != L->block_end(); ++bb) {
+			for(Loop::block_iterator bb = L->block_begin(); bb != L->block_end(); ++bb) {
 				blocks++;
 				BasicBlock::iterator t;
 				for(t = (*bb)->begin(); t!= (*bb)->end();t++) {
 					errs() << t->getOpcodeName() << "\n";
 				}
-
 			}
 			errs() << "Loop Depth: " << depth << " has " << blocks << " blocks\n";
 			std::vector<Loop*> subLoops  = L->getSubLoops();
