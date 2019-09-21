@@ -9,28 +9,15 @@ target triple = "x86_64-unknown-linux-gnu"
 define dso_local i32 @main() #0 !dbg !7 {
 entry:
   %retval = alloca i32, align 4
-  %variableyaaay = alloca i32, align 4
-  %addrr = alloca i32*, align 8
   store i32 0, i32* %retval, align 4
-  call void @llvm.dbg.declare(metadata i32* %variableyaaay, metadata !11, metadata !DIExpression()), !dbg !12
-  store i32 7, i32* %variableyaaay, align 4, !dbg !12
-  %call = call i32 (i8*, ...) @printf(i8* getelementptr inbounds ([15 x i8], [15 x i8]* @.str, i64 0, i64 0)), !dbg !13
-  %0 = load i32, i32* %variableyaaay, align 4, !dbg !14
-  %add = add nsw i32 %0, 8, !dbg !14
-  store i32 %add, i32* %variableyaaay, align 4, !dbg !14
-  call void @llvm.dbg.declare(metadata i32** %addrr, metadata !15, metadata !DIExpression()), !dbg !17
-  store i32* %variableyaaay, i32** %addrr, align 8, !dbg !17
-  ret i32 0, !dbg !18
+  %call = call i32 (i8*, ...) @printf(i8* getelementptr inbounds ([15 x i8], [15 x i8]* @.str, i64 0, i64 0)), !dbg !11
+  ret i32 0, !dbg !12
 }
 
-; Function Attrs: nounwind readnone speculatable
-declare void @llvm.dbg.declare(metadata, metadata, metadata) #1
-
-declare dso_local i32 @printf(i8*, ...) #2
+declare dso_local i32 @printf(i8*, ...) #1
 
 attributes #0 = { noinline nounwind optnone uwtable "correctly-rounded-divide-sqrt-fp-math"="false" "disable-tail-calls"="false" "less-precise-fpmad"="false" "min-legal-vector-width"="0" "no-frame-pointer-elim"="true" "no-frame-pointer-elim-non-leaf" "no-infs-fp-math"="false" "no-jump-tables"="false" "no-nans-fp-math"="false" "no-signed-zeros-fp-math"="false" "no-trapping-math"="false" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "unsafe-fp-math"="false" "use-soft-float"="false" }
-attributes #1 = { nounwind readnone speculatable }
-attributes #2 = { "correctly-rounded-divide-sqrt-fp-math"="false" "disable-tail-calls"="false" "less-precise-fpmad"="false" "no-frame-pointer-elim"="true" "no-frame-pointer-elim-non-leaf" "no-infs-fp-math"="false" "no-nans-fp-math"="false" "no-signed-zeros-fp-math"="false" "no-trapping-math"="false" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "unsafe-fp-math"="false" "use-soft-float"="false" }
+attributes #1 = { "correctly-rounded-divide-sqrt-fp-math"="false" "disable-tail-calls"="false" "less-precise-fpmad"="false" "no-frame-pointer-elim"="true" "no-frame-pointer-elim-non-leaf" "no-infs-fp-math"="false" "no-nans-fp-math"="false" "no-signed-zeros-fp-math"="false" "no-trapping-math"="false" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "unsafe-fp-math"="false" "use-soft-float"="false" }
 
 !llvm.dbg.cu = !{!0}
 !llvm.module.flags = !{!3, !4, !5}
@@ -47,11 +34,5 @@ attributes #2 = { "correctly-rounded-divide-sqrt-fp-math"="false" "disable-tail-
 !8 = !DISubroutineType(types: !9)
 !9 = !{!10}
 !10 = !DIBasicType(name: "int", size: 32, encoding: DW_ATE_signed)
-!11 = !DILocalVariable(name: "variableyaaay", scope: !7, file: !1, line: 4, type: !10)
-!12 = !DILocation(line: 4, column: 6, scope: !7)
-!13 = !DILocation(line: 5, column: 2, scope: !7)
-!14 = !DILocation(line: 6, column: 16, scope: !7)
-!15 = !DILocalVariable(name: "addrr", scope: !7, file: !1, line: 7, type: !16)
-!16 = !DIDerivedType(tag: DW_TAG_pointer_type, baseType: !10, size: 64)
-!17 = !DILocation(line: 7, column: 7, scope: !7)
-!18 = !DILocation(line: 8, column: 2, scope: !7)
+!11 = !DILocation(line: 4, column: 2, scope: !7)
+!12 = !DILocation(line: 5, column: 2, scope: !7)

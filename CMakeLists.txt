@@ -7,5 +7,6 @@ include(AddLLVM)
 add_definitions(${LLVM_DEFINITIONS})
 include_directories(${LLVM_INCLUDE_DIRS})
 
+add_subdirectory(user-vs-uses)
 add_subdirectory(toyPasses)
 add_subdirectory(scevService)
