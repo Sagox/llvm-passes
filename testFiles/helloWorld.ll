@@ -3,24 +3,50 @@ source_filename = "helloWorld.c"
 target datalayout = "e-m:e-i64:64-f80:128-n8:16:32:64-S128"
 target triple = "x86_64-unknown-linux-gnu"
 
-@.str = private unnamed_addr constant [15 x i8] c"Hello, World!\0A\00", align 1
+@.str = private unnamed_addr constant [4 x i8] c"%s\0A\00", align 1
+@.str.1 = private unnamed_addr constant [14 x i8] c"My name is ..\00", align 1
 
 ; Function Attrs: noinline nounwind optnone uwtable
 define dso_local i32 @main() #0 !dbg !7 {
 entry:
   %retval = alloca i32, align 4
-  %variableyaaay = alloca i32, align 4
-  %addrr = alloca i32*, align 8
+  %myvar = alloca i32, align 4
+  %rando = alloca i32, align 4
+  %myvar1 = alloca i32, align 4
+  %myvar12 = alloca i32, align 4
   store i32 0, i32* %retval, align 4
-  call void @llvm.dbg.declare(metadata i32* %variableyaaay, metadata !11, metadata !DIExpression()), !dbg !12
-  store i32 7, i32* %variableyaaay, align 4, !dbg !12
-  %call = call i32 (i8*, ...) @printf(i8* getelementptr inbounds ([15 x i8], [15 x i8]* @.str, i64 0, i64 0)), !dbg !13
-  %0 = load i32, i32* %variableyaaay, align 4, !dbg !14
-  %add = add nsw i32 %0, 8, !dbg !14
-  store i32 %add, i32* %variableyaaay, align 4, !dbg !14
-  call void @llvm.dbg.declare(metadata i32** %addrr, metadata !15, metadata !DIExpression()), !dbg !17
-  store i32* %variableyaaay, i32** %addrr, align 8, !dbg !17
-  ret i32 0, !dbg !18
+  call void @llvm.dbg.declare(metadata i32* %myvar, metadata !11, metadata !DIExpression()), !dbg !12
+  store i32 0, i32* %myvar, align 4, !dbg !12
+  call void @llvm.dbg.declare(metadata i32* %rando, metadata !13, metadata !DIExpression()), !dbg !15
+  store i32 4, i32* %rando, align 4, !dbg !15
+  call void @llvm.dbg.declare(metadata i32* %myvar1, metadata !16, metadata !DIExpression()), !dbg !18
+  store i32 0, i32* %myvar1, align 4, !dbg !18
+  br label %for.cond, !dbg !19
+
+for.cond:                                         ; preds = %for.inc, %entry
+  %0 = load i32, i32* %myvar1, align 4, !dbg !20
+  %cmp = icmp slt i32 %0, 5, !dbg !22
+  br i1 %cmp, label %for.body, label %for.end, !dbg !23
+
+for.body:                                         ; preds = %for.cond
+  call void @llvm.dbg.declare(metadata i32* %myvar12, metadata !24, metadata !DIExpression()), !dbg !26
+  store i32 0, i32* %myvar12, align 4, !dbg !26
+  %1 = load i32, i32* %myvar1, align 4, !dbg !27
+  %sub = sub nsw i32 %1, 1, !dbg !28
+  %add = add nsw i32 %sub, 1, !dbg !29
+  store i32 %add, i32* %myvar1, align 4, !dbg !30
+  %call = call i32 (i8*, ...) @printf(i8* getelementptr inbounds ([4 x i8], [4 x i8]* @.str, i64 0, i64 0), i8* getelementptr inbounds ([14 x i8], [14 x i8]* @.str.1, i64 0, i64 0)), !dbg !31
+  br label %for.inc, !dbg !32
+
+for.inc:                                          ; preds = %for.body
+  %2 = load i32, i32* %myvar1, align 4, !dbg !33
+  %inc = add nsw i32 %2, 1, !dbg !33
+  store i32 %inc, i32* %myvar1, align 4, !dbg !33
+  br label %for.cond, !dbg !34, !llvm.loop !35
+
+for.end:                                          ; preds = %for.cond
+  store i32 5, i32* %myvar, align 4, !dbg !37
+  ret i32 0, !dbg !38
 }
 
 ; Function Attrs: nounwind readnone speculatable
@@ -47,11 +73,31 @@ attributes #2 = { "correctly-rounded-divide-sqrt-fp-math"="false" "disable-tail-
 !8 = !DISubroutineType(types: !9)
 !9 = !{!10}
 !10 = !DIBasicType(name: "int", size: 32, encoding: DW_ATE_signed)
-!11 = !DILocalVariable(name: "variableyaaay", scope: !7, file: !1, line: 4, type: !10)
+!11 = !DILocalVariable(name: "myvar", scope: !7, file: !1, line: 4, type: !10)
 !12 = !DILocation(line: 4, column: 6, scope: !7)
-!13 = !DILocation(line: 5, column: 2, scope: !7)
-!14 = !DILocation(line: 6, column: 16, scope: !7)
-!15 = !DILocalVariable(name: "addrr", scope: !7, file: !1, line: 7, type: !16)
-!16 = !DIDerivedType(tag: DW_TAG_pointer_type, baseType: !10, size: 64)
-!17 = !DILocation(line: 7, column: 7, scope: !7)
-!18 = !DILocation(line: 8, column: 2, scope: !7)
+!13 = !DILocalVariable(name: "rando", scope: !14, file: !1, line: 6, type: !10)
+!14 = distinct !DILexicalBlock(scope: !7, file: !1, line: 5, column: 2)
+!15 = !DILocation(line: 6, column: 7, scope: !14)
+!16 = !DILocalVariable(name: "myvar", scope: !17, file: !1, line: 8, type: !10)
+!17 = distinct !DILexicalBlock(scope: !7, file: !1, line: 8, column: 2)
+!18 = !DILocation(line: 8, column: 10, scope: !17)
+!19 = !DILocation(line: 8, column: 6, scope: !17)
+!20 = !DILocation(line: 8, column: 20, scope: !21)
+!21 = distinct !DILexicalBlock(scope: !17, file: !1, line: 8, column: 2)
+!22 = !DILocation(line: 8, column: 25, scope: !21)
+!23 = !DILocation(line: 8, column: 2, scope: !17)
+!24 = !DILocalVariable(name: "myvar1", scope: !25, file: !1, line: 10, type: !10)
+!25 = distinct !DILexicalBlock(scope: !21, file: !1, line: 9, column: 2)
+!26 = !DILocation(line: 10, column: 7, scope: !25)
+!27 = !DILocation(line: 11, column: 11, scope: !25)
+!28 = !DILocation(line: 11, column: 17, scope: !25)
+!29 = !DILocation(line: 11, column: 21, scope: !25)
+!30 = !DILocation(line: 11, column: 9, scope: !25)
+!31 = !DILocation(line: 12, column: 3, scope: !25)
+!32 = !DILocation(line: 13, column: 2, scope: !25)
+!33 = !DILocation(line: 8, column: 33, scope: !21)
+!34 = !DILocation(line: 8, column: 2, scope: !21)
+!35 = distinct !{!35, !23, !36}
+!36 = !DILocation(line: 13, column: 2, scope: !17)
+!37 = !DILocation(line: 14, column: 8, scope: !7)
+!38 = !DILocation(line: 15, column: 2, scope: !7)

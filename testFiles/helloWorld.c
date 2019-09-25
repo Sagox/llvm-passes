@@ -1,9 +1,16 @@
 #include <stdio.h>
 
 int main() {
-	int variableyaaay = 7;
-	printf("Hello, World!\n");
-	variableyaaay += 8;
-	int *addrr = &variableyaaay;	
+	int myvar = 0;
+	{
+		int rando = 4;
+	}
+	for(int myvar = 0;myvar<5;myvar++) 
+	{
+		int myvar1=0;
+		myvar = myvar - 1 + 1;
+		printf("%s\n", "My name is ..");
+	}
+	myvar = 5;
 	return 0;
 }
