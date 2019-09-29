@@ -62,8 +62,8 @@ namespace {
 					}
 				}
 			}
-			errs() << "Checking for: " << *Values[0] << "\n";
 			auto  *AA = &getAnalysis<AAResultsWrapperPass>().getAAResults();
+			errs() << "Checking for: " << *Values[0] << "\n";
 			for(auto I=inst_begin(F), E=inst_end(F); I!=E; I++) {
 				for(auto O = I->op_begin(), OE = I->op_end(); O!=OE;O++) {
 					// errs() << AA->alias(Values[0], *O) << "\n";
