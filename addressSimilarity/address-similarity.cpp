@@ -29,14 +29,16 @@ namespace {
 
 		bool runOnFunction(Function &F) {
 			// auto a = new PassManager();
-			errs() << "Function: " <<F.getName() << "\n";
+			// errs() << "Function: " <<F.getName() << "\n";
+			Value *matchValue;
+			for(auto I=inst_begin(F), E=inst_end(F); I!=E; I++) {
+				// errs() << isa<Constant>(*(I->getOperand(0))) << "\n";
+				if(!isa<Constant>(*(I->getOperand(0))))
+					matchValue = I->getOperand(0);
+			}
 			auto  *AA = &getAnalysis<AAResultsWrapperPass>().getAAResults();
-			for(auto i=inst_begin(F), e=inst_end(F); i!=e; i++) {
-				for(auto j=i;j!=e;j++) {
-					if(j==i)
-						continue;
-					errs() << AA->alias(i->getValue(), j->getValue()) << "\n";
-				}
+			for(auto I=inst_begin(F), E=inst_end(F); I!=E; ++I) {
+					errs() << int(AA->alias(matchValue, I->getOperand(0))) << "\n";
 			}
 			return false;
 		}

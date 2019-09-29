@@ -1,16 +1,11 @@
 #include <stdio.h>
 
 int main() {
-	int myvar = 0;
+	int var = 1;
+	int *avar = &var;
 	{
-		int rando = 4;
+		int var = 5;
 	}
-	for(int myvar = 0;myvar<5;myvar++) 
-	{
-		int myvar1=0;
-		myvar = myvar - 1 + 1;
-		printf("%s\n", "My name is ..");
-	}
-	myvar = 5;
+	*avar = 7;
 	return 0;
 }
