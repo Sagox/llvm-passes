@@ -37,8 +37,8 @@ namespace {
 					matchValue = I->getOperand(0);
 			}
 			auto  *AA = &getAnalysis<AAResultsWrapperPass>().getAAResults();
-			for(auto I=inst_begin(F), E=inst_end(F); I!=E; ++I) {
-					errs() << int(AA->alias(matchValue, I->getOperand(0))) << "\n";
+			for(auto I=inst_begin(F), E=inst_end(F); I!=E; ++I) {	
+				errs() << int(AA->alias(matchValue, &(*I))) << "\n";
 			}
 			return false;
 		}
