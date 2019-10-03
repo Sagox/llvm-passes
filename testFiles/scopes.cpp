@@ -1,5 +1,9 @@
 int myvar = 45;
-
+float myglobalvar1 = 1;
+float myglobalvar2 = 1;
+float myglobalvar3 = 1;
+float myglobalvar4 = 1;
+float myglobalvar5 = 1;
 struct myvar {
 	int uvr;
 };
@@ -20,3 +24,5 @@ int main() {
 		myvar = myvar + 1 -1;
 	}
 }
+
+int myglobalvar6 = 7;
