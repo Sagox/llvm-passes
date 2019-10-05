@@ -26,7 +26,7 @@
 #include <string>
 #include <exception>
 #include <utility>
-
+#include "globalVariableUtils.h"
 
 using namespace llvm;
 
@@ -40,16 +40,8 @@ namespace {
 		}
 
 		bool runOnFunction(Function &F) {
-			SmallVector<DIGlobalVariableExpression*, 1000> sv; 			
-			auto b = F.begin();
-			auto m = b->getModule();
-			auto &gl = m->getGlobalList();
-			for(auto i=gl.begin();i!=gl.end();++i) {
-				i->getDebugInfo(sv);
-				// errs() << sv.size() << "\n";
-			}
-				for(auto j=sv.begin();j!=sv.end();j++)
-					errs() << (*j)->getVariable()->getName() << "\n";
+			printGlobalVarss(F);
+			return false;
 		}
 	};
 }
