@@ -3,6 +3,8 @@
 
 using namespace llvm;
 
-int printGlobalVarss(Function &F);
+int printGlobalVarNames(Function &F);
+int getGlobalVariableValues(Function &F);
+int globalVariableUses(Function &F, AAResults *AA, StringRef s);
 
 #endif

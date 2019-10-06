@@ -36,11 +36,14 @@ namespace {
 		printGlobalVars() : FunctionPass(ID) {}
 
 		void getAnalysisUsage (AnalysisUsage &AU) const {
+			AU.addRequired<AAResultsWrapperPass>();
 			AU.setPreservesAll();
 		}
 
 		bool runOnFunction(Function &F) {
-			printGlobalVarss(F);
+			auto  *AA = &getAnalysis<AAResultsWrapperPass>().getAAResults();
+			globalVariableUses(F, AA, StringRef("myvar"));
+
 			return false;
 		}
 	};

@@ -1,3 +1,5 @@
+#include <iostream>
+
 int myvar = 45;
 float myglobalvar1 = 1;
 float myglobalvar2 = 1;
@@ -9,7 +11,7 @@ struct myvar {
 };
 
 int main() {
-	int myvar = 0;
+	//int myvar = 0;
 	int b;
 	int a = 5;
 	int *pa = &myvar;
