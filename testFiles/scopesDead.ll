@@ -1,4 +1,4 @@
-; ModuleID = 'scopes.cpp'
+; ModuleID = 'testFiles/scopes.ll'
 source_filename = "scopes.cpp"
 target datalayout = "e-m:e-i64:64-f80:128-n8:16:32:64-S128"
 target triple = "x86_64-unknown-linux-gnu"
@@ -35,72 +35,69 @@ declare dso_local i32 @__cxa_atexit(void (i8*)*, i8*, i8*) #3
 ; Function Attrs: noinline norecurse nounwind uwtable
 define dso_local i32 @main() #4 {
 entry:
-  %retval = alloca i32, align 4
-  %b = alloca i32, align 4
-  %a = alloca i32, align 4
-  %pa = alloca i32*, align 8
-  %myvar = alloca i32, align 4
-  %myvar2 = alloca i32, align 4
-  store i32 0, i32* %retval, align 4
-  store i32 5, i32* %a, align 4
-  store i32* @myvar, i32** %pa, align 8
-  %0 = load i32, i32* %a, align 4
-  %1 = load i32, i32* %a, align 4
-  %mul = mul nsw i32 %0, %1
-  store i32 %mul, i32* %a, align 4
-  %2 = load i32, i32* %a, align 4
-  %3 = load i32, i32* %a, align 4
-  %mul1 = mul nsw i32 %2, %3
-  store i32 %mul1, i32* %b, align 4
-  store i32 0, i32* %myvar, align 4
   br label %for.cond
 
 for.cond:                                         ; preds = %for.inc8, %entry
-  %4 = load i32, i32* %myvar, align 4
-  %cmp = icmp slt i32 %4, 10
+  %myvar.0 = phi i32 [ 0, %entry ], [ %inc, %for.inc8 ]
+  %cmp = icmp slt i32 %myvar.0, 10
   br i1 %cmp, label %for.body, label %for.end9
 
 for.body:                                         ; preds = %for.cond
-  %5 = load i32*, i32** %pa, align 8
-  %6 = load i32, i32* %5, align 4
-  %add = add nsw i32 %6, 5
-  %7 = load i32*, i32** %pa, align 8
-  store i32 %add, i32* %7, align 4
-  store i32 0, i32* %myvar2, align 4
+  %0 = load i32, i32* @myvar, align 4
+  %add = add nsw i32 %0, 5
+  store i32 %add, i32* @myvar, align 4
   br label %for.cond3
 
-for.cond3:                                        ; preds = %for.inc, %for.body
-  %8 = load i32, i32* %myvar2, align 4
-  %cmp4 = icmp slt i32 %8, 10
-  br i1 %cmp4, label %for.body5, label %for.end
+for.cond3:                                        ; preds = %for.body
+  br label %for.body5
 
 for.body5:                                        ; preds = %for.cond3
-  %9 = load i32, i32* %myvar2, align 4
-  store i32 %9, i32* %myvar2, align 4
   br label %for.inc
 
 for.inc:                                          ; preds = %for.body5
-  %10 = load i32, i32* %myvar2, align 4
-  %add6 = add nsw i32 %10, 2
-  store i32 %add6, i32* %myvar2, align 4
-  br label %for.cond3
+  br label %for.body5.1
 
-for.end:                                          ; preds = %for.cond3
-  %11 = load i32, i32* %myvar, align 4
-  %add7 = add nsw i32 %11, 1
+for.end:                                          ; preds = %for.inc.4
+  %add7 = add nsw i32 %myvar.0, 1
   %sub = sub nsw i32 %add7, 1
-  store i32 %sub, i32* %myvar, align 4
   br label %for.inc8
 
 for.inc8:                                         ; preds = %for.end
-  %12 = load i32, i32* %myvar, align 4
-  %inc = add nsw i32 %12, 1
-  store i32 %inc, i32* %myvar, align 4
+  %inc = add nsw i32 %sub, 1
   br label %for.cond
 
 for.end9:                                         ; preds = %for.cond
-  %13 = load i32, i32* %retval, align 4
-  ret i32 %13
+  ret i32 0
+
+for.body5.1:                                      ; preds = %for.inc
+  br label %for.inc.1
+
+for.inc.1:                                        ; preds = %for.body5.1
+  br label %for.body5.2
+
+for.body5.2:                                      ; preds = %for.inc.1
+  br label %for.inc.2
+
+for.inc.2:                                        ; preds = %for.body5.2
+  br label %for.body5.3
+
+for.body5.3:                                      ; preds = %for.inc.2
+  br label %for.inc.3
+
+for.inc.3:                                        ; preds = %for.body5.3
+  br label %for.body5.4
+
+for.body5.4:                                      ; preds = %for.inc.3
+  br label %for.inc.4
+
+for.inc.4:                                        ; preds = %for.body5.4
+  br i1 false, label %for.body5.5, label %for.end
+
+for.body5.5:                                      ; preds = %for.inc.4
+  br label %for.inc.5
+
+for.inc.5:                                        ; preds = %for.body5.5
+  unreachable
 }
 
 ; Function Attrs: noinline uwtable
