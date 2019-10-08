@@ -42,7 +42,6 @@ int getGlobalVariableValues(Function &F) {
 }
 
 int globalVariableUses(Function &F, AAResults *AA, StringRef s) {
-	// errs() << "I got called\n";
 	SmallVector<DIGlobalVariableExpression*, 1000> sv; 			
 	Value *globalReqValue;
 	auto b = F.begin();
